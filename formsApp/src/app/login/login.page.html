@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-
+<form [formGroup]="formLogin">
   <div class="ion-text-center">
 
     <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
@@ -20,7 +20,15 @@
           <ion-col>
             <ion-item>
               <ion-label>email:</ion-label>
-              <ion-input placeholder="example123@email.com"></ion-input>
+              <ion-input formControlName="email"></ion-input>
+              <ng-container *ngFor="let erro of mensagens.email">
+                <span
+                  class="msg-erro"
+                  *ngIf="formLogin.get('email').hasError(erro.tipo) && (formLogin.get('email').dirty || formLogin.get('email').touched)"
+                >
+                  {{erro.mensagem}}
+                </span>
+              </ng-container>
             </ion-item>
           </ion-col>
 
@@ -30,7 +38,15 @@
           <ion-col>
             <ion-item>
               <ion-label>senha:</ion-label>
-              <ion-input placeholder="*******"></ion-input>
+              <ion-input formControlName="senha"></ion-input>
+              <ng-container *ngFor="let erro of mensagens.senha">
+                <span
+                  class="msg-erro"
+                  *ngIf="formLogin.get('senha').hasError(erro.tipo) && (formLogin.get('senha').dirty || formLogin.get('senha').touched)"
+                >
+                  {{erro.mensagem}}
+                </span>
+              </ng-container>
             </ion-item>
 
           </ion-col>
@@ -39,10 +55,12 @@
       </ion-grid>
 
     </ion-card-content>
-    <ion-button fill="outline">
+    <ion-button >
    entrar
    </ion-button>
-
+   <ion-button fill="outline" >
+    esqueci a senha
+    </ion-button>
     <ion-button fill="outline">
       <ion-item routerLink="/tabs/tab1">
         voltar
@@ -54,6 +72,6 @@
 
 
 
-
+</form>
 
 </ion-content>
